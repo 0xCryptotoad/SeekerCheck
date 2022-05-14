@@ -1,3 +1,4 @@
+from operator import truediv
 import requests
 import json
 import os
@@ -63,7 +64,7 @@ def main():
     syncChanges(seekerChanges)
     print("Checked for seekers at war :)")
     time.sleep(300)
-    main()
+
 
 
 
@@ -73,4 +74,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    while True: 
+        main()
+
