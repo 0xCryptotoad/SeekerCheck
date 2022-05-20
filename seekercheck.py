@@ -1,3 +1,4 @@
+from importlib.metadata import metadata
 from operator import truediv
 import requests
 import json
@@ -8,6 +9,7 @@ atWarIds = []
 lastIdListTimestamp = None
 atWarFileName = "idList.txt"
 hasReturnedFileName = "hasReturned.txt"
+seekerMetadata = {}
 
 def saveSeekerIds(seekerIds, fileName):
     with open(fileName, "w") as idFile:
@@ -31,12 +33,12 @@ def syncChanges(seekerInfo):
         print(f"These seekers have returned from war: {hasReturned}")
 
 
-
 def checkSeeker(seekId):
     hasChanged = False
     response = requests.get(f"https://api.seekers.xyz/seeker/{seekId}")
     if response.status_code == 200:
         hasChanged = "beacon" not in response.text
+        seekerMetadata[seekId] = response.json()
     return hasChanged
 
 
